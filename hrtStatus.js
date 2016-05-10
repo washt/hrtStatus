@@ -14,7 +14,7 @@ ftp.on('ready', () => {
 		if (err) throw err;
 		stream
 		  .once('close',() => {ftp.end();})
-		    .pipe(fs.createWriteStream(newfile));
+		  .pipe(fs.createWriteStream(newfile));
 	});
 }).connect({host : '216.54.15.3'});
 
@@ -23,16 +23,21 @@ fs.readdir('logs/', (err, files) => {
 	if (err) throw err;
 
 	if (files[files.length -1] == undefined) {
-		console.log("Error No File Found");
+		console.log("Error: No File Found");
 	};
 
+	//If only header in last sync, notify
+	fs.stat('logs/' + files[files.length -1], (err,stats) => {
+		if err throw err;
+		if (stats.size == 107) {
+			console.log("Error: Most recent pull only returned header");
+		}
+	});
+
+	//read files and diff them 
 	files.forEach((filename) => {
 		fs.stat('logs/' + filename, (err,stats) => {
 			if (err) throw err;
-		  //If only header in last sync, notify
-			if (stats.size == 107) {
-				//console.log(filename);	
-			};
 		}); 
 	});
 
