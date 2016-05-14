@@ -1,9 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
-var fs = require('fs');
-var ftp = require('ftp');
-var moment = require('moment');
+var _ = require('lodash'),
+   fs = require('fs'),
+  ftp = require('ftp'),
+moment = require('moment');
 
 var time = moment().format('h:mm:ss');
 var newfile = 'logs/hrtrtf_'+ time + '.txt';
@@ -52,4 +52,3 @@ fs.readdir('logs/', (err, files) => {
 	};
   console.log(files);
 });
-
