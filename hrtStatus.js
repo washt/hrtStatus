@@ -3,22 +3,52 @@
 var _ = require('lodash'),
    fs = require('fs'),
   ftp = require('ftp'),
-moment = require('moment');
+moment = require('moment'),
+nodemailer = require('nodemailer');
 
-var time = moment().format('h:mm:ss');
-var newfile = 'logs/hrtrtf_'+ time + '.txt';
+var time = moment().format('h:mm:ss'),
+    newfile = 'logs/hrtrtf_'+ time + '.txt',
+		sender_name = "HRT Bus Status Bot",
+		sender = "test@gmail.com",
+		_pass = 'test',
+		receiver = "test@gmail.com",
+		IP = '216.54.15.3',
+		filepath = 'Anrd/hrtrtf.txt';
+
+var authy = {
+	service: "Gmail",	
+	auth: { user: sender, pass: _pass },
+	secure: true
+};
+
+var transporter = nodemailer.createTransport(authy);
+
+var mailOpts = {
+	from: sender_name + " <" + sender + ">" ,
+	to: receiver,
+	subject: 'HRT Bus App Test',
+	html: '<b>Testing test </b>'
+};
+
+// send mail with defined transport object 
+transporter.sendMail(mailOpts, function(error, info){
+	if(error){
+		return console.log(error);
+	}
+	console.log('Message sent: ' + info.response);
+});
 
 // fetch the latest hrtbus data
 var ftp = new ftp();
 ftp.on('ready', () => {
-	ftp.get('Anrd/hrtrtf.txt', (err, stream) => {
+	ftp.get(filepath, (err, stream) => {
 		if (err) throw err;
 
 		stream
 		  .once('close',() => {ftp.end();})
 		  .pipe(fs.createWriteStream(newfile));
 	});
-}).connect({host : '216.54.15.3'});
+}).connect({host : IP});
 
 //read the files from the log dir
 fs.readdir('logs/', (err, files) => {
