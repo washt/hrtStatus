@@ -4,14 +4,14 @@
   "description": "Uptime checker for the HrtBus app",
   "main": "hrtStatus.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./tests"
   },
   "dependencies": {
     "lodash": "2.4.1",
-		"nodemailer":"2.4.1",	
+    "nodemailer":"2.4.1",	
     "moment": "2.12.0",
-    "ftp": "0.3.10",
+    "ftp": "0.3.10"
   },
-  "author": "",
+  "author": "Tucker Wash <twash@cs.odu.edu>",
   "license": "MIT"
 }
