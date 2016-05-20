@@ -23,7 +23,7 @@ ftp.on('ready', () => {
 }).connect({host : config['IP']});
 
 //read the files from the log dir
-fs.readdir('logs/', (err, files) => {
+fs.readdir('/home/twash/hrtStatus/logs/', (err, files) => {
 	if (err) throw err;
 
 	if (files[files.length -1] == undefined) {
@@ -41,7 +41,7 @@ fs.readdir('logs/', (err, files) => {
 	};
 
 	//If only header in last sync, notify
-	fs.stat('logs/' + files[files.length -1], (err,stats) => {
+	fs.stat('/home/twash/hrtStatus/logs/' + files[files.length -1], (err,stats) => {
 		
 		if (err) throw err
 		
@@ -60,7 +60,7 @@ fs.readdir('logs/', (err, files) => {
 	});
 
 	//If file size hasn't changed for 5 consecutive  pulls, assume stale feed
-	fs.readFile('logs/' + files[files.length -1],'utf8', (err, data) => {
+	fs.readFile('/home/twash/hrtStatus/logs/' + files[files.length -1],'utf8', (err, data) => {
 
 		if (err) throw err;
 
@@ -77,15 +77,20 @@ fs.readdir('logs/', (err, files) => {
 
 			});
 		}
-	}); 
+		else { 
+			console.log("Feed Ok")
+		}
+}); 
 
-	// maintain a queue of 6 files, moving oldest file into archive
-	if(files.length > 5) {
-		fs.renameSync('logs/' + files[0],'./archive/' + files[0]);
+	// maintain a queue of 10 files, moving oldest file into archive
+	if(files.length > 10) {
+		fs.renameSync('/home/twash/hrtStatus/logs/' + files[0],'/home/twash/hrtStatus/archive/' + files[0]);
 	};
-  console.log(files);
+  //console.log(files);
 });
 
 process.on('uncaughtException', function(err) {
 	console.log(err);
+
+
 });
