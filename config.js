@@ -3,7 +3,7 @@
 var moment = require('moment'),
     path = require('path')
 
-const TIME        = moment().format('h:mm:ss') ,
+const TIME        = moment().format('YYYY-MM-DDTHH:mm:ss') ,
       NEWFILE     ='/home/twash/hrtStatus/logs/hrtrtf_'+ moment().format('h:mm:ss') + '.txt',
       SENDER      = 'YOUR_EMAIL',
       PASS        = 'YOUR_PASS_HERE',
