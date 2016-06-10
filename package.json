@@ -16,9 +16,11 @@
     "lodash": "2.4.1",
     "moment": "2.12.0",
     "nodemailer": "2.4.1",
-    "nodemon": "^1.9.2",
-    "ftp": "0.3.10"
+    "nodemon": "^1.9.2"
   },
   "author": "Tucker Wash <twash@cs.odu.edu>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  }
 }
