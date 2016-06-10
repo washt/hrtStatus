@@ -3,7 +3,7 @@
 ## Setup
 1. Clone this repo and `cd` into it
 2. `npm install`
-3. `node index.js`
+3. `npm start`
 
 ## License
 
